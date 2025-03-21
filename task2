@@ -1,0 +1,157 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Complex UI with Purple-Pink Theme',
+      theme: ThemeData(
+        primarySwatch: Colors.purple, // Purple theme
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      home: const HomeScreen(),
+    );
+  }
+}
+
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final TextEditingController _textController = TextEditingController();
+  String _displayText = 'Enter something and click the button!';
+
+  void _updateText() {
+    setState(() {
+      _displayText = _textController.text.isEmpty
+          ? 'Please enter something!'
+          : 'You entered: ${_textController.text}';
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'Complex UI with Purple-Pink Theme',
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+        centerTitle: true,
+        elevation: 10,
+        backgroundColor: Colors.purple, // Purple AppBar
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            // First Row: Text Field and Button
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _textController,
+                    decoration: InputDecoration(
+                      hintText: 'Enter something...',
+                      hintStyle: TextStyle(
+                        color: Colors.purple[300],
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      filled: true,
+                      fillColor: Colors.purple[50], // Light purple background
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 10),
+                ElevatedButton(
+                  onPressed: _updateText,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.pink, // Pink button
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 15,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  child: const Text(
+                    'Submit',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+
+            // Second Row: Display Text
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.purple[100], // Light purple background
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(
+                  color: Colors.purple, // Purple border
+                  width: 2,
+                ),
+              ),
+              child: Text(
+                _displayText,
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.purple[900], // Dark purple text
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            const SizedBox(height: 20),
+
+            // Third Row: Icons
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: const [
+                Icon(
+                  Icons.star,
+                  size: 40,
+                  color: Colors.pink, // Pink icon
+                ),
+                Icon(
+                  Icons.favorite,
+                  size: 40,
+                  color: Colors.pink, // Pink icon
+                ),
+                Icon(
+                  Icons.thumb_up,
+                  size: 40,
+                  color: Colors.pink, // Pink icon
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
